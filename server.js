@@ -49,7 +49,7 @@ app.get("/scrape", function(req, res) {
       result.link = $(this)
         .children("a")
         .attr("href");
-      result.saved = false; // working
+      result.saved = false;
 
       db.Article.create(result)
         .then(function(dbArticle) {
@@ -101,7 +101,6 @@ app.post("/articles/:id", function(req, res) {
       res.json(err); // error
     });
 });
-
 
 
 // Route for saving an Article ***** WORK IN PROGRESS
