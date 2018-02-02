@@ -9,7 +9,10 @@ $.getJSON("/articles", function(data) {
     $("#" + data[i]._id).append("<button data-id=" + data[i]._id + " class='comment'>Comment</button>");
     // added 'saved' to false *****
   }
+
 });
+
+// need a separet database ... only way
 
 
 // Whenever someone clicks a comment button
@@ -88,6 +91,8 @@ $(document).on("click", ".save", function() {
     method: "POST",
     url: "/articles/save/" + thisId
   });
+
+  //console.log("../models".Article.find({ _id: thisId }));
 });
 
 // Whenever someone clicks an usave button ***** WORK IN PROGRESS
@@ -100,6 +105,24 @@ $(document).on("click", ".unsave", function() {
   });
 });
 
+// Load unread books and render them to the screen
+function getSaves() {
+  $("#saves").empty();
+  $.getJSON("/articles", function(data) {
+    for (var i = 0; i < data.length; i++) {
+      console.log(data[i].saved);
+      if(data[i].saved) {
+        $("#saves").append("<div id='" + data[i]._id + "' saved='true'>" + data[i].title + "<br />" + data[i].link + "</div>");
+        $("#" + data[i]._id).append("<button data-id=" + data[i]._id + " class='save'>Save</button>");
+        $("#" + data[i]._id).append("<button data-id=" + data[i]._id + " class='unsave'>Unsave</button>");
+        $("#" + data[i]._id).append("<button data-id=" + data[i]._id + " class='comment'>Comment</button>");
+      }
+    }
+    // $("#unread").prepend("<tr><th>Title</th><th>Author</th><th>Read/Unread</th></tr>");
+  });
+}
+
+getSaves();
 
 
 // Figure out how to get rid of old note

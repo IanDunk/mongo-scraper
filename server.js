@@ -56,7 +56,7 @@ app.get("/scrape", function(req, res) {
           console.log(dbArticle);
         })
         .catch(function(err) {
-          return res.json(err);
+          return res.json(err); // sending a lot of unuseful data
         });
     });
 
@@ -131,6 +131,7 @@ app.post("/articles/unsave/:id", function(req, res) {
 });
 
 
+require("./routes/html-routes.js")(app);
 
 // Start the server
 app.listen(PORT, function() {
